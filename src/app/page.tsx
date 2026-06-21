@@ -3,7 +3,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-8 py-5 border-b border-white/10">
+     <nav className="flex items-center justify-between px-4 md:px-8 py-5 border-b border-white/10">
         <span className="text-xl font-bold">AICodeReview</span>
         <div className="flex items-center gap-6">
           <a href="#" className="text-sm text-white/60 hover:text-white">
@@ -50,7 +50,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-16">
           Everything your team needs
         </h2>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
               title: "Instant Reviews",
@@ -93,7 +93,7 @@ export default function Home() {
         <p className="text-center text-white/50 mb-16">
           Start free, scale when you're ready
         </p>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
               name: "Free",
@@ -180,8 +180,8 @@ export default function Home() {
         </div>
       </section>
       {/* Footer */}
-      <footer className="border-t border-white/10 px-8 py-12">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+      <footer className="border-t border-white/10 px-4 md:px-8 py-12">
+  <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 md:justify-between">
           <span className="text-lg font-bold">AICodeReview</span>
           <div className="flex gap-8 text-sm text-white/40">
             <a href="#" className="hover:text-white">
