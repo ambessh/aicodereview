@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
@@ -11,9 +12,12 @@ export default function Home() {
           <a href="#" className="text-sm text-white/60 hover:text-white">
             Docs
           </a>
-          <button className="text-sm bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-white/90">
+          <Link
+            href="/review"
+            className="text-sm bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-white/90"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -30,9 +34,12 @@ export default function Home() {
           GitHub — get actionable feedback in seconds.
         </p>
         <div className="flex gap-4">
-          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-white/90">
+          <Link
+            href="/review"
+            className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-white/90"
+          >
             Start for free
-          </button>
+          </Link>
           <button className="border border-white/20 px-6 py-3 rounded-lg text-white/70 hover:border-white/40">
             View demo
           </button>
