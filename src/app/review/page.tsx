@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { UserButton, SignInButton } from "@clerk/nextjs";
 import { useAuth } from "@clerk/nextjs";
-
+import Link from "next/link";
 export default function ReviewPage() {
   const [code, setCode] = useState("");
   const [review, setReview] = useState("");
@@ -34,20 +34,28 @@ export default function ReviewPage() {
     <main className="min-h-screen bg-black text-white">
       {/* Navbar */}
       {/* Navbar */}
-<nav className="flex items-center justify-between px-8 py-5 border-b border-white/10">
-  <a href="/" className="text-xl font-bold">AICodeReview</a>
-  <div className="flex items-center gap-4">
-    {isSignedIn ? (
-      <UserButton />
-    ) : (
-      <SignInButton mode="modal">
-        <button className="text-sm bg-white text-black px-4 py-2 rounded-lg font-medium">
-          Sign in
-        </button>
-      </SignInButton>
-    )}
-  </div>
-</nav>
+      <nav className="flex items-center justify-between px-8 py-5 border-b border-white/10">
+        <a href="/" className="text-xl font-bold">
+          AICodeReview
+        </a>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard"
+            className="text-sm text-white/60 hover:text-white"
+          >
+            Dashboard
+          </Link>
+          {isSignedIn ? (
+            <UserButton />
+          ) : (
+            <SignInButton mode="modal">
+              <button className="text-sm bg-white text-black px-4 py-2 rounded-lg font-medium">
+                Sign in
+              </button>
+            </SignInButton>
+          )}
+        </div>
+      </nav>
       {/* Editor */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 h-[calc(100vh-65px)]">
         {/* Left - Code Input */}
