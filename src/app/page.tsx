@@ -3,13 +3,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
       {/* Navbar */}
-     <nav className="flex items-center justify-between px-4 md:px-8 py-5 border-b border-white/10">
+      <nav className="flex items-center justify-between px-4 md:px-8 py-5 border-b border-white/10">
         <span className="text-xl font-bold">AICodeReview</span>
         <div className="flex items-center gap-6">
-          <a href="#" className="text-sm text-white/60 hover:text-white">
+          <a href="#pricing" className="text-sm text-white/60 hover:text-white">
             Pricing
           </a>
-          <a href="#" className="text-sm text-white/60 hover:text-white">
+          <a href="/docs" className="text-sm text-white/60 hover:text-white">
             Docs
           </a>
           <Link
@@ -40,9 +40,9 @@ export default function Home() {
           >
             Start for free
           </Link>
-          <button className="border border-white/20 px-6 py-3 rounded-lg text-white/70 hover:border-white/40">
-            View demo
-          </button>
+          <Link href="/review" className="border border-white/20 px-6 py-3 rounded-lg text-white/70 hover:border-white/40">
+  View demo
+</Link>
         </div>
       </section>
       {/* Features */}
@@ -88,7 +88,7 @@ export default function Home() {
         </div>
       </section>
       {/* Pricing */}
-      <section className="px-8 py-24 max-w-5xl mx-auto">
+      <section id="pricing" className="px-8 py-24 max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-4">Simple pricing</h2>
         <p className="text-center text-white/50 mb-16">
           Start free, scale when you're ready
@@ -106,6 +106,7 @@ export default function Home() {
                 "Community support",
               ],
               cta: "Get started",
+              href: "/review",
               highlight: false,
             },
             {
@@ -120,6 +121,7 @@ export default function Home() {
                 "Team dashboard",
               ],
               cta: "Start free trial",
+              href: "/review",
               highlight: true,
             },
             {
@@ -134,6 +136,7 @@ export default function Home() {
                 "Dedicated support",
               ],
               cta: "Contact us",
+              href: "mailto:ambeshtiwari96@gmail.com",
               highlight: false,
             },
           ].map((plan) => (
@@ -166,34 +169,34 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button
-                className={`mt-auto py-3 rounded-lg text-sm font-medium transition ${
-                  plan.highlight
-                    ? "bg-white text-black hover:bg-white/90"
-                    : "border border-white/20 text-white/70 hover:border-white/40"
-                }`}
+              <a href={plan.href}
+                className={`mt-auto py-3 rounded-lg text-sm font-medium text-center w-full block transition ${
+    plan.highlight
+      ? "bg-white text-black hover:bg-white/90"
+      : "border border-white/20 text-white/70 hover:border-white/40"
+  }`}
               >
                 {plan.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>
       </section>
       {/* Footer */}
       <footer className="border-t border-white/10 px-4 md:px-8 py-12">
-  <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 md:justify-between">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 md:justify-between">
           <span className="text-lg font-bold">AICodeReview</span>
           <div className="flex gap-8 text-sm text-white/40">
-            <a href="#" className="hover:text-white">
+            <a href="/privacy" className="hover:text-white">
               Privacy
             </a>
-            <a href="#" className="hover:text-white">
+            <a href="/terms" className="hover:text-white">
               Terms
             </a>
-            <a href="#" className="hover:text-white">
+            <a href="/docs" className="hover:text-white">
               Docs
             </a>
-            <a href="#" className="hover:text-white">
+            <a href="mailto:ambeshtiwari96@gmail.com" className="hover:text-white">
               Contact
             </a>
           </div>
