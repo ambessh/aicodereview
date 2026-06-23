@@ -21,8 +21,14 @@ export default function ReviewPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code, language }),
       });
-      const data = await res.json();
-      setReview(data.review || "No review generated.");
+     const data = await res.json();
+
+if (res.status === 403) {
+  setReview("⚠️ Free tier limit reached. Upgrade to Pro from your dashboard.");
+  return;
+}
+
+setReview(data.review || "No review generated.");
     } catch (err) {
       setReview("Something went wrong. Please try again.");
     } finally {

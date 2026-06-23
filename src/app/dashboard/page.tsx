@@ -174,8 +174,8 @@ export default function Dashboard() {
             </div>
           ) : (
             reviews.map((r) => (
+              <Link key={r.id} href={`/dashboard/review/${r.id}`}>
               <div
-                key={r.id}
                 className="px-6 py-4 border-b border-white/10 hover:bg-white/5"
               >
                 <div className="flex items-center justify-between mb-1">
@@ -188,6 +188,7 @@ export default function Dashboard() {
                   {r.code}
                 </p>
               </div>
+              </Link>
             ))
           )}
         </div>
