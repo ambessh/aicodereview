@@ -17,6 +17,32 @@ export default function Dashboard() {
   function connectGitHub() {
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=repo`;
   }
+  async function handleUpgrade() {
+    const res = await fetch("/api/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: 1900, plan: "pro" }), // $19 = ~1900 INR
+    });
+    const { orderId, amount } = await res.json();
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount,
+      currency: "INR",
+      name: "AICodeReview",
+      description: "Pro Plan - Monthly",
+      order_id: orderId,
+      handler: function (response: any) {
+        alert("Payment successful! " + response.razorpay_payment_id);
+      },
+      prefill: {
+        email: user?.emailAddresses[0]?.emailAddress,
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  }
   const [reviews, setReviews] = useState<any[]>([]);
   const totalReviews = reviews.length;
   const thisMonth = reviews.filter((r) => {
@@ -116,6 +142,22 @@ export default function Dashboard() {
               Connect GitHub
             </button>
           )}
+        </div>
+
+        {/* Upgrade */}
+        <div className="border border-white/10 rounded-xl p-6 mb-8 flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold mb-1">Upgrade to Pro</h3>
+            <p className="text-sm text-white/40">
+              Unlimited reviews, GitHub PR integration, all languages
+            </p>
+          </div>
+          <button
+            onClick={handleUpgrade}
+            className="text-sm bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-white/90"
+          >
+            Upgrade — $19/mo
+          </button>
         </div>
 
         {/* Review History */}

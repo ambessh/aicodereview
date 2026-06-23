@@ -25,12 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+      <html
+        lang="en"
+        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      >
+        <head>
+          <script src="https://checkout.razorpay.com/v1/checkout.js" />
+        </head>
+        <body className="min-h-full flex flex-col">{children}</body>
+      </html>
     </ClerkProvider>
   );
 }
