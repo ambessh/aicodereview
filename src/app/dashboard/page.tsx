@@ -44,6 +44,8 @@ export default function Dashboard() {
     rzp.open();
   }
   const [reviews, setReviews] = useState<any[]>([]);
+  const [prReviews, setPrReviews] = useState<any[]>([]);
+
   const totalReviews = reviews.length;
   const thisMonth = reviews.filter((r) => {
     const date = new Date(r.created_at);
@@ -72,6 +74,15 @@ export default function Dashboard() {
         .order("created_at", { ascending: false })
         .then(({ data }) => {
           if (data) setReviews(data);
+        });
+
+      supabase
+        .from("reviews")
+        .select("*")
+        .eq("language", "diff")
+        .order("created_at", { ascending: false })
+        .then(({ data }) => {
+          if (data) setPrReviews(data);
         });
     }
   }, [user]);
@@ -161,7 +172,10 @@ export default function Dashboard() {
         </div>
 
         {/* Review History */}
-        <div className="flex flex-col">
+        <div className="border border-white/10 rounded-xl overflow-hidden">
+          <div className="px-6 py-4 border-b border-white/10">
+                  <h2 className="font-semibold">Recent Reviews</h2>
+                </div>
           {reviews.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-white/30">
               <p className="text-lg mb-2">No reviews yet</p>
@@ -175,22 +189,53 @@ export default function Dashboard() {
           ) : (
             reviews.map((r) => (
               <Link key={r.id} href={`/dashboard/review/${r.id}`}>
-              <div
-                className="px-6 py-4 border-b border-white/10 hover:bg-white/5"
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium">{r.language}</span>
-                  <span className="text-xs text-white/30">
-                    {new Date(r.created_at).toLocaleDateString()}
-                  </span>
+                <div className="px-6 py-4 border-b border-white/10 hover:bg-white/5 overflow-hidden">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm font-medium">{r.language}</span>
+                    <span className="text-xs text-white/30">
+                      {new Date(r.created_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/40 font-mono truncate">
+                    {r.code}
+                  </p>
                 </div>
-                <p className="text-xs text-white/40 font-mono truncate">
-                  {r.code}
-                </p>
-              </div>
               </Link>
             ))
           )}
+        </div>
+
+        {/* GitHub PR Reviews */}
+        <div className="border border-white/10 rounded-xl overflow-hidden mt-8">
+          <div className="px-6 py-4 border-b border-white/10">
+            <h2 className="font-semibold">GitHub PR Reviews</h2>
+          </div>
+          <div className="flex flex-col">
+            {prReviews.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 text-white/30">
+                <p className="text-lg mb-2">No PR reviews yet</p>
+                <p className="text-sm">
+                  Connect GitHub and open a PR to get started
+                </p>
+              </div>
+            ) : (
+              prReviews.map((r) => (
+                <Link key={r.id} href={`/dashboard/review/${r.id}`}>
+                  <div className="px-6 py-4 border-b border-white/10 hover:bg-white/5 cursor-pointer">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium">{r.user_id}</span>
+                      <span className="text-xs text-white/30">
+                        {new Date(r.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-white/40 font-mono truncate">
+                      {r.code}
+                    </p>
+                  </div>
+                </Link>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </main>
