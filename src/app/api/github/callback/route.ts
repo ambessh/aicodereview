@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
+import { supabase } from "@/lib/supabase";
+import { auth } from "@clerk/nextjs/server";
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
 
@@ -23,11 +24,22 @@ export async function GET(req: NextRequest) {
   const tokenData = await tokenRes.json();
   const accessToken = tokenData.access_token;
 
+  // Token Supabase mein save karo
+  const { userId } = await auth();
+  if (userId) {
+    await supabase.from("users").upsert({
+      id: userId,
+      github_token: accessToken,
+    });
+  }
+
   if (!accessToken) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  const response = NextResponse.redirect(new URL("/dashboard?github=connected", req.url));
+  const response = NextResponse.redirect(
+    new URL("/dashboard?github=connected", req.url),
+  );
   response.cookies.set("github_token", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
