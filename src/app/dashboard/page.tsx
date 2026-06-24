@@ -195,4 +195,6 @@ export default function Dashboard() {
       </div>
     </main>
   );
-};
+}
+
+console.log("Dashboard page loaded");
